@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  
+</head>
+
+<body style="background-color:powderblue;">
+
+
+ <div class="contentcontainer med left" style="margin-left: 500px;">
+	<h1>Rent Prediction</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+     
+  <form action="{{ url_for('predict')}}"method="post">
+    <img src="{{url_for('static', filename = 'img.jpeg' )}}",alt="Image" width="400" ,height="400"><br>
+    <label for="Bedroom">Bedroom:</label>
+    <input type="number" min = '0'  name="Bedroom"  placeholder="Bedroom" required="required" size="200"><br><br>
+    <label for="Bathroom">Bathroom:</label>
+    <input type="number" min = '0'  name="Bathroom" placeholder="Bathroom" required="required" size="200"><br><br>
+    <label for="Balcony">Balcony:</label>
+    <input type="number" min = '0' name="Balcony" placeholder="Balcony" required="required" size="200"><br><br>
+    <label for="Super_area">Super_area:</label>
+    <input type="number" min = '0' step=0.01 name="Super_area" placeholder="Super_area" required="required" size="200"><br><br>
+    <label for="Carpet_area">Carpet_area:</label>
+    <input type="number" min = '0' step=0.01 name="Carpet_area" placeholder="Carpet_area" required="required" size="200"><br><br>
+    <label for="Furnished_status" accesskey="Furnished_status">Furnished_status</label>
+    <select name="Furnished_status" id="Furnished_status">
+	       <option>Unfurnished
+	       <option>Semi-Furnished
+           <option>Furnished     
+    </select><br><br>
+    <label for="Car_parking" accesskey="Car_parking">Car_parking</label>
+    <select name="Car_parking" id="Car_parking">
+	       <option>1
+	       <option>2  
+           <option>3
+           <option>4    
+    </select><br><br>
+    <label for="Tenants_Preferred">Tenants_Preferred:</label>
+    <select name="Tenants_Preferred" id="Tenants_Preferred">
+        <option>Bachelors
+        <option>Family
+        <option>None     
+    </select><br><br>
+    <label for="Water_Availability">Water_Availability:</label>
+    <select name="Water_Availability" id="Water_Availability">
+        <option>12 Hours Available
+        <option>None
+        <option>24 Hours Available     
+    </select><br><br>
+    <label for="Booking_Amount">Booking_Amount:</label>
+    <input type="number" min = '0' step=0.01 name="Booking_Amount" placeholder="Booking_Amount" required="required" size="200"><br><br>
+    <label for="Address">Address:</label>
+    <select name="Address" id="Address">
+        <option>None
+        <option>Wakad
+        <option>Hinjewadi    
+        <option>Hadapsar
+        <option>Wagholi 
+        <option>Kalyani Nagar
+        <option>Kharadi
+        <option>Pune    
+        <option>Magarpatta City
+        <option>Wadgaon Sheri
+        <option>Pimple Saudagar
+        <option>Baner
+        <option>Balewadi    
+        <option>Amanora Park Town
+        <option>Dhanori 
+        <option>NIBM Road
+        <option>Viman Nagar
+        <option>Koregaon Park    
+        <option>Aundh
+        <option>Wanowrie 
+        
+    </select><br><br>
+    <label for="Status">Status:</label>
+    <select name="Status" id="Status">
+        <option>Immediately
+        <option>Immediately Available
+        <option>None     
+    </select><br><br>
+    <label for="Overlooking">Overlooking:</label>
+    <select name="Overlooking" id="Overlooking">
+        <option>Garden/Park
+        <option>Garden/Park, Main Road
+        <option>Garden/Park, Main Road, Pool   
+        <option>Garden/Park, Pool
+        <option>Garden/Park, Pool, Main Road
+        <option>Main Road 
+        <option>Main Road, Garden/Park
+        <option>Main Road, Garden/Park, Pool
+        <option>Furnished 
+        <option>Garden/Park, Pool
+        <option>Garden/Park, Pool, Main Road
+        <option>None
+        <option>Pool
+        <option>Pool, Garden/Park
+        <option>Pool, Garden/Park, Main Road   
+        <option>Pool, Main Road
+        <option>Pool, Main Road, Garden/Park 
+    </select><br><br>
+    <label for="Status_of_Electricity">Status_of_Electricity:</label>
+    <select name="Status_of_Electricity" id="Status_of_Electricity">
+        <option>Over 6 Hours Powercut
+        <option>2 To 4 Hours Powercut
+        <option>None     
+        <option>No/Rare Powercut  
+    </select><br><br>
+    <label for="Lifts">Lifts:</label>
+    <input type="number" min = '0' max = '6'  name="Lifts" placeholder="Lifts" required="required" size="200"><br><br>
+    <label for="Other_Tenants_Preferred">Other_Tenants_Preferred:</label>
+    <select name="Other_Tenants_Preferred" id="Other_Tenants_Preferred">
+        <option>Non-Vegetarians
+        <option>Non-Vegetarians, Pets allowed
+        <option>Non-Vegetarians, Pets not allowed     
+        <option>Non-Vegetarians, With Company Lease, Pets not allowed
+        <option>Non-Vegetarians, Without Company Lease
+        <option>Non-Vegetarians, Without Company Lease, Pets allowed    
+        <option>Non-Vegetarians, Without Company Lease, Pets not allowed
+        <option>None
+        <option>Pets allowed     
+        <option>Pets not allowed
+        <option>Vegetarians
+        <option>Vegetarians, Pets not allowed    
+        <option>Vegetarians, With Company Lease, Pets not allowed
+        <option>Vegetarians, Without Company Lease, Pets not allowed
+        <option>With Company Lease    
+        <option>With Company Lease, Pets not allowed
+        <option>Without Company Lease
+        <option>Without Company Lease, Pets allowed    
+        <option>Without Company Lease, Pets not allowed   
+    </select><br><br>
+    <label for="Age_of_Construction">Age_of_Construction:</label>
+    <select name="Age_of_Construction" id="Age_of_Construction">
+        <option>None
+        <option>Above 20 years
+        <option>15 to 20 years  
+        <option>10 to 15 years
+        <option>5 to 10 years
+        <option>Less than 5 years
+        <option>New Construction
+    </select><br><br>
+    <label for="Authority_Approval">Authority_Approval:</label>
+    <select name="Authority_Approval" id="Authority_Approval">
+        <option>City Municipal Corporation
+        <option>Developer
+        <option>Development Authority
+        <option>None
+    </select><br><br>
+    <label for="Type_of_Ownership">Type_of_Ownership:</label>
+    <select name="Type_of_Ownership" id="Type_of_Ownership">
+        <option>Co-operative Society
+        <option>Freehold
+        <option>Leasehold
+        <option>None
+    </select><br><br>
+    <label for="Amenities_no">Amenities_no:</label>
+    <input type="number" min = '1' max = '60'  name="Amenities_no" placeholder="Booking_Amount" required="required" size="200"><br><br>
+    
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text  }} 
+
+ </div>
+
+
+</body>
+</html>
